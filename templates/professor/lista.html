@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Professor</title>
-</head>
-<body>
-<h1>professor/lista.html</h1>
-</body>
-</html>
+{% include 'dashboard/cabecalho.html' %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Lista de Professores</h1>
+
+    <!-- O LUGAR CORRETO DO BOTÃO DE CADASTRO: Fora e acima da tabela -->
+    <a href="/professor/cadastrar" class="btn btn-success mb-3">Cadastrar Novo Professor</a>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Disciplina</th> 
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for professor in lista %}
+                    <tr>
+                        <td>{{ professor[0] }}</td>
+                        <td>{{ professor[1] }}</td>
+                        <td>{{ professor[2] }}</td>
+                        <td class="text-center">
+                            <a href="/professor/editar/{{ professor[0] }}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="/professor/excluir/{{ professor[0] }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este professor?');">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% include 'dashboard/rodape.html' %}

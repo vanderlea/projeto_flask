@@ -1,0 +1,38 @@
+{% include 'dashboard/cabecalho.html' %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Lista de Cursos</h1>
+
+    
+    <a href="/curso/cadastrar" class="btn btn-success mb-3">Cadastrar Novo Curso</a>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome_curso</th>
+                        <th>Duração</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for curso in lista %}
+                    <tr>
+                        <td>{{ curso[0] }}</td>
+                        <td>{{ curso[1] }}</td>
+                        <td>{{ curso[2] }}</td>
+                        <td class="text-center">
+                            <a href="/curso/editar/{{ curso[0] }}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="/curso/excluir/{{ curso[0] }}" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir?');">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% include 'dashboard/rodape.html' %}

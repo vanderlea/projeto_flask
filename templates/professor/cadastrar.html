@@ -1,0 +1,26 @@
+{% include 'dashboard/cabecalho.html' %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Cadastrar Novo Professor</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Professor</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do professor" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="disciplina" class="form-label">Disciplina</label>
+                    <input type="text" class="form-control" id="disciplina" name="disciplina" placeholder="Ex: Matemática" required>
+                </div>
+
+                <button type="submit" class="btn btn-success">Cadastrar Professor</button>
+                <a href="/professor" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'dashboard/rodape.html' %}

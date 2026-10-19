@@ -1,0 +1,35 @@
+{% include 'dashboard/cabecalho.html' %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Editar Aluno</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="/aluno/editar/{{ aluno.id }}" method="POST">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Aluno</label>
+                    <input type="text" class="form-control" id="nome" name="nome" value="{{ aluno[1] }}" required>
+                    
+                </div>
+                
+                <div class="mb-3">
+                    <label for="idade" class="form-label">Idade</label>
+                    <input type="number" class="form-control" id="idade" name="idade" value="{{ aluno[2] }}" required>
+                    
+                </div>
+
+                <div class="mb-3">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input type="text" class="form-control" id="cidade" name="cidade" value="{{ aluno[3] }}" required>
+                    <input type="text" name="cidade" value="{{ aluno.cidade }}">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+
+                <a href="/aluno" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'dashboard/rodape.html' %}

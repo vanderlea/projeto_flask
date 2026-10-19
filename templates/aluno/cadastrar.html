@@ -1,0 +1,31 @@
+{% include 'dashboard/cabecalho.html' %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Cadastrar Novo Aluno</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Aluno</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome completo" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="idade" class="form-label">Idade</label>
+                    <input type="number" class="form-control" id="idade" name="idade" placeholder="Ex: 18" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input type="text" class="form-control" id="cidade" name="cidade" placeholder="Ex: Teresina" required>
+                </div>
+
+                <button type="submit" class="btn btn-success">Cadastrar Aluno</button>
+                <a href="/aluno" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'dashboard/rodape.html' %}

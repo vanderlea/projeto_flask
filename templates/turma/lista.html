@@ -1,0 +1,40 @@
+{% include 'dashboard/cabecalho.html' %}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Lista de Turmas</h1>
+
+    <!-- O BOTÃO CORRETO DEVE FICAR AQUI: Acima da tabela e fora do loop -->
+    <a href="/turma/cadastrar" class="btn btn-success mb-3">Cadastrar Nova Turma</a>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Semestre</th>
+                        <th>Curso</th>
+                        <th>Professor</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turma in lista %}
+                    <tr>
+                        <td>{{ turma[0] }}</td>
+                        <td>{{ turma[1] }}</td>
+                        <td>{{ turma[2] }}</td>
+                        <td>{{ turma[3] }}</td>
+                        <td class="text-center">
+                            <a href="/turma/editar/{{ turma[0] }}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="/turma/excluir/{{ turma[0] }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta turma?');">Excluir</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% include 'dashboard/rodape.html' %}

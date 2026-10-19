@@ -1,0 +1,15 @@
+% include 'dashboard/cabecalho.html' %}
+<div class="container mt-4">
+    <h1 class="mb-4">Editar Curso</h1>
+    <div class="card"><div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome do Curso</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ curso[1] }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a href="/curso" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div></div>
+</div>
+{% include 'dashboard/rodape.html' %}
