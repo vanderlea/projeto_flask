@@ -82,14 +82,6 @@ def cadastrar_aluno():
         
     return render_template('aluno/cadastrar.html')
 
-@app.route('/aluno')
-def lista():
-    try:
-        dao = AlunoDAO()
-        lista = dao.listar()
-        return render_template('aluno/lista.html', lista=lista)
-    except Exception as e:
-        return f"<pre>{e}</pre>"
 
 @app.route('/turma/excluir/<int:id>')
 def excluir_turma(id):
