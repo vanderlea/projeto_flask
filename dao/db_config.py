@@ -1,12 +1,8 @@
-import pg8000
+import sqlite3
+import psycopg2
 
+DB_PATH = "DATABASE_URL_UNPOOLED=postgresql://neondb_owner:npg_Wox4p8yvbRtg@ep-little-hill-b7vug4vu.c-13.us-east-1.aws.neon.tech/neondb?sslmode=require"
 def get_connection():
     
-    return pg8000.connect(
-        user="neondb_owner",
-        password="npg_eTgiMwpX5Yx3",
-        host="ep-proud-glitter-b7sfoqm1-pooler.c-13.us-east-1.aws.neon.tech",
-        port=5432,
-        database="neondb",
-        ssl_context=True
-        )
+return psycopg2.connect(DB_PATH)
+        
