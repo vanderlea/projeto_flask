@@ -184,9 +184,3 @@ def ajuda():
 if __name__ == '__main__':
     app.run(debug=True)
 
-
-
-
-
-
-    #Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
