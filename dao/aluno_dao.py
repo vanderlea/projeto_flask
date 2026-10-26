@@ -57,4 +57,4 @@ class AlunoDAO:
         cursor = self.conn.cursor()
         cursor.execute(sql, (aluno.nome, aluno.idade, aluno.cidade, aluno.id))
         self.conn.commit() 
-        ursor.close()
+        cursor.close()
