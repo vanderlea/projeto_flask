@@ -6,5 +6,3 @@ DB_PATH = "DATABASE_URL_UNPOOLED=postgresql://neondb_owner:npg_Wox4p8yvbRtg@ep-l
 
 def get_connection():
     return psycopg2.connect(DB_PATH)
-
-        

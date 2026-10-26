@@ -5,10 +5,7 @@ from dao.turma_dao import TurmaDAO
 from dao.curso_dao import CursoDAO
 
 
-
-
 app = Flask(__name__)
-
 
 
 @app.route('/')
