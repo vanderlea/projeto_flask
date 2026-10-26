@@ -1,26 +1,8 @@
-import os
-import psycopg2 
-
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from dao.aluno_dao import AlunoDAO
 from dao.professor_dao import ProfessorDAO
 from dao.turma_dao import TurmaDAO
 from dao.curso_dao import CursoDAO
-
-
-conn = psycopg2.connect(
-     user="neondb_owner",
-     password="npg_eTgiMwpX5Yx3",
-     host="ep-proud-glitter-b7sfoqm1-pooler.c-13.us-east-1.aws.neon.tech",
-     port=5432,
-     database="neondb",
-     ssl_context=True)
-
-cursor = conn.cursor()
-
-
-
-
 
 
 
