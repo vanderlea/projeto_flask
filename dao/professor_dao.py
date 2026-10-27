@@ -2,7 +2,7 @@ from dao.db_config import get_connection
 
 class ProfessorDAO:
 
-    sqlSelect = "SELECT id, nome, disciplina from professor"
+    sqlSelect = 'SELECT id, nome, disciplina from professor'
 
     def listar(self):
         conn = get_connection()
@@ -32,7 +32,7 @@ class ProfessorDAO:
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute(
-        "UPDATE professor SET nome = %s, disciplina = %s WHERE id = %s",
+        'UPDATE professor SET nome = %s, disciplina = %s WHERE id = %s',
         (nome, disciplina, id)
     )
         conn.commit()
@@ -43,7 +43,7 @@ class ProfessorDAO:
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO professor (nome, disciplina) VALUES (%s, %s)",
+            'INSERT INTO professor (nome, disciplina) VALUES (%s, %s)',
             (nome, disciplina)
         )
         conn.commit()

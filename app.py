@@ -62,6 +62,8 @@ def cadastrar_aluno():
     return render_template('aluno/cadastrar.html')
 
 
+
+
 @app.route('/turma/excluir/<int:id>')
 def excluir_turma(id):
     dao = TurmaDAO()

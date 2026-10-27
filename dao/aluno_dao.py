@@ -4,7 +4,7 @@ class AlunoDAO:
 
 
 
-    sqlSelect = "SELECT id, nome, idade, cidade FROM aluno"
+    sqlSelect = 'SELECT id, nome, idade, cidade FROM aluno'
 
     def listar(self):
         conn = get_connection()
@@ -18,7 +18,7 @@ class AlunoDAO:
     def excluir(self, id):
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM aluno WHERE id = %s", (id,))
+        cursor.execute('DELETE FROM aluno WHERE id = %s', (id,))
         conn.commit()
         cursor.close()
         conn.close()
@@ -26,7 +26,7 @@ class AlunoDAO:
     def buscar_por_id(self, id):
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT id, nome, idade, cidade FROM aluno WHERE id = %s", (id,))
+        cursor.execute('SELECT id, nome, idade, cidade FROM aluno WHERE id = %s', (id,))
         aluno = cursor.fetchone()
         cursor.close()
         conn.close()
@@ -36,7 +36,7 @@ class AlunoDAO:
          conn = get_connection()
          cursor = conn.cursor()
          cursor.execute(
-         "UPDATE aluno SET nome = %s, idade = %s, cidade = %s WHERE id = %s",
+         'UPDATE aluno SET nome = %s, idade = %s, cidade = %s WHERE id = %s',
          (nome, idade, cidade, id)
          )
          conn.commit()
@@ -47,7 +47,7 @@ class AlunoDAO:
          conn = get_connection()
          cursor = conn.cursor()
          cursor.execute(
-         "INSERT INTO aluno (nome, idade, cidade) VALUES (%s, %s, %s)",
+         'INSERT INTO aluno (nome, idade, cidade) VALUES (%s, %s, %s)',
          (nome, idade, cidade)
          )
          conn.commit()
@@ -55,7 +55,7 @@ class AlunoDAO:
          conn.close()
 
     def alterar(self, aluno):
-        sql = "UPDATE aluno SET nome = %s, idade = %s, cidade = %s WHERE id = %s"
+        sql = 'UPDATE aluno SET nome = %s, idade = %s, cidade = %s WHERE id = %s'
         cursor = self.conn.cursor()
         cursor.execute(sql, (aluno.nome, aluno.idade, aluno.cidade, aluno.id))
         self.conn.commit() 
