@@ -185,7 +185,7 @@ def ajuda():
 
 @app.route('/desafio')
 def desafio1():
-    return render_template('dashboard/desafio.html')
+    return render_template('desafio/desafio.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
