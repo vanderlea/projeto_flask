@@ -26,14 +26,14 @@ def lista():
     lista = dao.listar()
     return render_template('aluno/lista.html', lista=lista)
 
-@app.route('/aluno/excluir/<int:id>')
-def excluir_aluno(id):
+@app.route('/aluno/excluir/<int:id_aluno>')
+def excluir_aluno(id_aluno):
     dao = AlunoDAO()
-    dao.excluir(id)
+    dao.excluir(id_aluno)
     return redirect('/aluno')
 
-@app.route('/aluno/editar/<int:id>', methods=['GET', 'POST'])
-def editar_aluno(id):
+@app.route('/aluno/editar/<int:id_aluno>', methods=['GET', 'POST'])
+def editar_aluno(id_aluno):
     dao = AlunoDAO()
     
     if request.method == 'POST':
@@ -42,10 +42,10 @@ def editar_aluno(id):
         idade = request.form['idade']
         cidade = request.form['cidade']
         
-        dao.salvar_edicao(id, nome, idade, cidade)
+        dao.salvar_edicao(id_aluno, nome, idade, cidade)
         return redirect('/aluno')
         
-    aluno = dao.buscar_por_id(id)
+    aluno = dao.buscar_por_id(id_aluno)
     return render_template('aluno/editar.html', aluno=aluno)
 
 @app.route('/aluno/cadastrar', methods=['GET', 'POST'])
@@ -64,39 +64,39 @@ def cadastrar_aluno():
 
 
 
-@app.route('/turma/excluir/<int:id>')
-def excluir_turma(id):
+@app.route('/turma/excluir/<int:id_turma>')
+def excluir_turma(id_turma):
     dao = TurmaDAO()
-    dao.excluir(id)
+    dao.excluir(id_turma)
     return redirect('/turma')
 
-@app.route('/turma/editar/<int:id>', methods=['GET', 'POST'])
-def editar_turma(id):
+@app.route('/turma/editar/<int:id_turma>', methods=['GET', 'POST'])
+def editar_turma(id_turma):
     dao = TurmaDAO()
     if request.method == 'POST':
         nome = request.form['nome']
         id_curso = request.form['id_curso']
-        dao.salvar_edicao(id, nome, id_curso)
+        dao.salvar_edicao(id_turma, nome, id_curso)
         return redirect('/turma')
         
-    turma = dao.buscar_por_id(id)
+    turma = dao.buscar_por_id(id_turma)
     return render_template('turma/editar.html', turma=turma)
 
-@app.route('/curso/excluir/<int:id>')
-def excluir_curso(id):
+@app.route('/curso/excluir/<int:id_curso>')
+def excluir_curso(id_curso):
     dao = CursoDAO()
-    dao.excluir(id)
+    dao.excluir(id_curso)
     return redirect('/curso')
 
-@app.route('/curso/editar/<int:id>', methods=['GET', 'POST'])
-def editar_curso(id):
+@app.route('/curso/editar/<int:id_curso>', methods=['GET', 'POST'])
+def editar_curso(id_curso):
     dao = CursoDAO()
     if request.method == 'POST':
         nome = request.form['nome']
-        dao.salvar_edicao(id, nome)
+        dao.salvar_edicao(id_curso, nome)
         return redirect('/curso')
         
-    curso = dao.buscar_por_id(id)
+    curso = dao.buscar_por_id(id_curso)
     return render_template('curso/editar.html', curso=curso)
 
     
@@ -107,14 +107,14 @@ def listar_professor():
     lista = dao.listar()
     return render_template('professor/lista.html', lista=lista)
 
-@app.route('/professor/editar/<int:id>')
-def editar_professor(id):
-    return f"Página de edição do professor com ID: {id}"
+@app.route('/professor/editar/<int:id_professor>')
+def editar_professor(id_professor):
+    return f"Página de edição do professor com ID: {id_professor}"
 
-@app.route('/professor/excluir/<int:id>')
-def excluir_professor(id):
+@app.route('/professor/excluir/<int:id_professor>')
+def excluir_professor(id_professor):
     dao = ProfessorDAO()
-    dao.excluir(id)
+    dao.excluir(id_professor)
     return redirect('/professor') 
 
 @app.route('/professor/cadastrar', methods=['GET', 'POST'])
