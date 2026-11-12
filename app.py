@@ -173,6 +173,7 @@ def cadastrar_professor():
         return redirect('/professor')
         
     return render_template('professor/cadastrar.html')
+
       #listar turmas
 @app.route('/turma')
 def listar_turma():
