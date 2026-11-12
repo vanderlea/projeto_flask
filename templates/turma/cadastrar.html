@@ -1,26 +1,38 @@
 {% include 'dashboard/cabecalho.html' %}
 
-<div class="container mt-4">
-    <h1 class="mb-4">Cadastrar Nova Turma</h1>
+<h1 class="mb-4">{{ 'Editar Turma' if turma else 'Nova Turma' }}</h1>
 
-    <div class="card">
-        <div class="card-body">
-            <form method="POST">
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome da Turma</label>
-                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex: Informática 1A" required>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="id_curso" class="form-label">ID do Curso</label>
-                    <input type="number" class="form-control" id="id_curso" name="id_curso" placeholder="Digite o ID numérico do curso" required>
-                </div>
+<form action="{{ '/turma/salvar/' ~ turma[0] if turma else '/turma/salvar/' }}" method="POST">
 
-                <button type="submit" class="btn btn-success">Cadastrar Turma</button>
-                <a href="/turma" class="btn btn-secondary">Cancelar</a>
-            </form>
-        </div>
+    
+    <div class="mb-3">
+        <label for="semestre" class="form-label">Semestre</label>
+        <input type="text" class="form-control" id="semestre" name="semestre" 
+               value="{{ turma[1] if turma else '' }}" required>
     </div>
-</div>
+
+    
+    <div class="mb-3">
+        <label for="curso_id" class="form-label">Curso</label>
+        <select name="curso_id" id="curso_id" class="form-select" required>
+            {% for curso in lista_cursos %}
+                <option value="{{ curso[0] }}" {% if turma and curso[0] == turma[2] %}selected{% endif %}>{{ curso[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    
+    <div class="mb-3">
+        <label for="professor_id" class="form-label">Professor</label>
+        <select name="professor_id" id="professor_id" class="form-select" required>
+            {% for professor in lista_professores %}
+                <option value="{{ professor[0] }}" {% if turma and professor[0] == turma[3] %}selected{% endif %}>{{ professor[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a href="/turma" class="btn btn-secondary">Cancelar</a>
+</form>
 
 {% include 'dashboard/rodape.html' %}

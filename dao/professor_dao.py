@@ -11,18 +11,12 @@ class ProfessorDAO:
         lista = cursor.fetchall()
         return lista
 
-    def excluir(self, id):
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute(self.sqlDelete, (id,))
-        conn.commit()  
-        cursor.close()
-        conn.close()
+   
 
     def buscar_por_id(self, id):
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute(self.sqlSelectId, (id,))
+        cursor.execute('SELECT id, nome, disciplina FROM professor WHERE id = %s', (id,))
         professor = cursor.fetchone() 
         cursor.close()
         conn.close()
@@ -31,13 +25,17 @@ class ProfessorDAO:
     def salvar_edicao(self, id, nome, disciplina):
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute(
-        'UPDATE professor SET nome = %s, disciplina = %s WHERE id = %s',
-        (nome, disciplina, id)
-    )
-        conn.commit()
-        cursor.close()
-        conn.close()
+        try:
+            cursor.execute('INSERT INTO professor (nome, disciplina, id) VALUES (%s, %s, %s)', (nome, disciplina, id))  
+            conn.commit()
+            cursor.execute('UPDATE professor SET nome = %s, disciplina = %s WHERE id = %s', (nome, disciplina, id))
+            conn.commit()
+        except Exception as e:
+            conn.rollback()
+            raise e
+        finally:
+            cursor.close()
+            conn.close()
 
     def inserir(self, nome, disciplina):
         conn = get_connection()
@@ -49,3 +47,15 @@ class ProfessorDAO:
         conn.commit()
         cursor.close()
         conn.close()
+        
+    def remover(self, id):
+        conn = get_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute('DELETE FROM professor WHERE id = %s', (id,))
+            conn.commit()
+            return {"status": "ok"}
+        except Exception as e:
+            return {"status": "erro", "mensagem": f"Erro: {str(e)}"}
+        finally:
+            conn.close()
