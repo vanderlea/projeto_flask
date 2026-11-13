@@ -64,6 +64,11 @@ def cadastrar_aluno():
         
     return render_template('aluno/cadastrar.html')
 
+@app.route("/turma/form")
+def form_turma():
+    cursos = CursoDAO().listar()
+    professores = ProfessorDAO().listar()
+    return render_template('turma/form.html', turma=None, cursos=cursos, professores=professores)
 
 @app.route('/turma/editar/<int:id>')
 def editar_turma(id):
