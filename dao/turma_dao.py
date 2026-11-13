@@ -2,7 +2,7 @@ from dao.db_config import get_connection
 
 class TurmaDAO:
     
-    def lista(self):
+    def listar(self):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute('SELECT id, semestre, curso_id, professor_id FROM turma')
@@ -11,7 +11,7 @@ class TurmaDAO:
         return turmas
     
     
-    def listar(self):
+    def listar_cursos(self):
         conn = get_connection()
         cursor = conn.cursor()
         cursor.execute('''
