@@ -1,71 +1,103 @@
+
 from dao.db_config import get_connection
 
 class TurmaDAO:
-    
-    sqlSelect = 'SELECT turma.id, turma.semestre, nome_curso, professor.nome from turma JOIN curso on curso.id=turma.curso_id JOIN professor on professor.id=turma.professor_id'
-    
+
+    sqlSelect = '''
+        SELECT
+            turma.id,
+            turma.semestre,
+            curso.nome_curso,
+            professor.nome
+        FROM turma
+        INNER JOIN curso ON curso.id = turma.curso_id
+        INNER JOIN professor ON professor.id = turma.professor_id
+        ORDER BY turma.id DESC
+    '''
+
     def listar(self):
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute(self.sqlSelect)
-        turmas = cursor.fetchall()
-        conn.close()
-        return turmas
-    
-    
+
+        try:
+            cursor.execute(self.sqlSelect)
+            turmas = cursor.fetchall()
+            return turmas
+
+        except Exception as e:
+            print("Erro ao listar turmas:", str(e))
+            return []
+
+        finally:
+            cursor.close()
+            conn.close()
+
     def listar_cursos(self):
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute('''
-            SELECT turma.id, turma.semestre, curso.nome_curso, professor.nome, professor.disciplina
-            FROM turma
-            JOIN curso ON turma.curso_id = curso.id
-            JOIN professor ON turma.professor_id = professor.id 
-            ORDER BY turma.id DESC
-        ''')
-        lista = cursor.fetchall()
-        conn.close()
-        return lista
-    
-    
+        return self.listar()
+
     def salvar(self, id, semestre, curso_id, professor_id):
         conn = get_connection()
         cursor = conn.cursor()
+
         try:
             if id:
                 cursor.execute('''
-                    UPDATE turma SET semestre = %s, curso_id = %s, professor_id = %s WHERE id = %s
-                ''', (id, semestre, curso_id, professor_id))
+                    UPDATE turma
+                    SET semestre = %s,
+                        curso_id = %s,
+                        professor_id = %s
+                    WHERE id = %s
+                ''', (semestre, curso_id, professor_id, id))
             else:
                 cursor.execute('''
-                    INSERT INTO turma (semestre, curso_id, professor_id) VALUES (%s, %s, %s)
-                ''', (id, semestre, curso_id, professor_id))
+                    INSERT INTO turma (semestre, curso_id, professor_id)
+                    VALUES (%s, %s, %s)
+                ''', (semestre, curso_id, professor_id))
+
             conn.commit()
             return {"status": "ok"}
+
         except Exception as e:
+            conn.rollback()
+            print("Erro ao salvar turma:", str(e))
             return {"status": "erro", "mensagem": str(e)}
+
         finally:
+            cursor.close()
             conn.close()
 
     def buscar_por_id(self, id):
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT id, semestre, curso_id, professor_id FROM turma WHERE id = %s', (id,))
-        turma = cursor.fetchone()
-        conn.close()
-        return turma
+
+        try:
+            cursor.execute('''
+                SELECT id, semestre, curso_id, professor_id
+                FROM turma
+                WHERE id = %s
+            ''', (id,))
+
+            return cursor.fetchone()
+
+        finally:
+            cursor.close()
+            conn.close()
 
     def remover(self, id):
         conn = get_connection()
         cursor = conn.cursor()
+
         try:
-            cursor.execute('DELETE FROM turma WHERE id = %s', (id,))
+            cursor.execute(
+                'DELETE FROM turma WHERE id = %s', (id,)
+            )
             conn.commit()
             return {"status": "ok"}
-        except Exception as e:
-            return {"status": "erro", "mensagem": f"Erro: {str(e)}"}
-        finally:
-            conn.close()
-            
 
-   
+        except Exception as e:
+            conn.rollback()
+            return {"status": "erro", "mensagem": str(e)}
+
+        finally:
+            cursor.close()
+            conn.close()
