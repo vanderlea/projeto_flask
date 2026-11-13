@@ -64,6 +64,12 @@ def cadastrar_aluno():
         
     return render_template('aluno/cadastrar.html')
 
+@app.route('/turma')
+def listar_turma():
+    dao = TurmaDAO()
+    lista = dao.listar()
+    return render_template('turma/lista.html', lista=lista)
+
 @app.route("/turma/form")
 def form_turma():
     cursos = CursoDAO().listar()
@@ -78,6 +84,17 @@ def editar_turma(id):
     professores = ProfessorDAO().listar()
     return render_template('turma/form.html', turma=turma, cursos=cursos, professores=professores)
 
+@app.route('/turma/cadastrar', methods=['GET', 'POST'])
+def cadastrar_turma():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        id_curso = request.form['id_curso']
+        
+        dao = TurmaDAO()
+        dao.salvar(None, nome, id_curso, professor_id=request.form['professor_id'])
+        return redirect('/turma')
+        
+    return render_template('turma/cadastrar.html')
 
 
 @app.route('/curso/excluir/<int:id_curso>')
@@ -179,25 +196,7 @@ def cadastrar_professor():
         
     return render_template('professor/cadastrar.html')
 
-      #listar turmas
-@app.route('/turma')
-def listar_turma():
-    dao = TurmaDAO()
-    lista = dao.listar()
-    return render_template('turma/lista.html', lista=lista)
-
-@app.route('/turma/cadastrar', methods=['GET', 'POST'])
-def cadastrar_turma():
-    if request.method == 'POST':
-        nome = request.form['nome']
-        id_curso = request.form['id_curso']
-        
-        dao = TurmaDAO()
-        dao.salvar(None, nome, id_curso, professor_id=request.form['professor_id'])
-        return redirect('/turma')
-        
-    return render_template('turma/cadastrar.html')
-
+   
 @app.route('/curso')
 def listar_curso():
     dao = CursoDAO()
