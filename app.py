@@ -67,8 +67,8 @@ def cadastrar_aluno():
 @app.route('/turma')
 def listar_turma():
     dao = TurmaDAO()
-    lista = dao.listar()
-    return render_template('turma/lista.html', lista=lista)
+    lista = dao.listar_cursos() 
+    return render_template('turma/lista.html', lista_turmas=lista)
 
 @app.route("/turma/form")
 def form_turma():
@@ -95,6 +95,33 @@ def cadastrar_turma():
         return redirect('/turma')
         
     return render_template('turma/cadastrar.html')
+
+app.route('/turma/salvar', methods=['POST'])
+@app.route('/turma/salvar/<int:id>', methods=['POST'])
+def salvar_turma(id=None):
+    semestre = request.form['semestre']
+    curso_id = request.form['curso_id']
+    professor_id = request.form['professor_id']
+    
+    dao = TurmaDAO()
+    resultado = dao.salvar(id, semestre, curso_id, professor_id)
+    
+    if resultado["status"] == "ok":
+        flash("Turma salva com sucesso!", "success")
+    else:
+        flash(resultado["mensagem"], "danger")
+        
+    return redirect('/turma')
+
+@app.route('/turma/remover/<int:id>')
+def remover_turma(id):
+    dao = TurmaDAO()
+    resultado = dao.remover(id)
+    if resultado["status"] == "ok":
+        flash("Turma removida com sucesso!", "success")
+    else:
+        flash(resultado["mensagem"], "danger")
+    return redirect('/turma')
 
 
 @app.route('/curso/excluir/<int:id_curso>')

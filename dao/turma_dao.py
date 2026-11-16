@@ -33,11 +33,11 @@ class TurmaDAO:
             if id:
                 cursor.execute('''
                     UPDATE turma SET semestre = %s, curso_id = %s, professor_id = %s WHERE id = %s
-                ''', (id, semestre, curso_id, professor_id))
+                ''', (semestre, curso_id, professor_id, id)) # <-- id por último
             else:
                 cursor.execute('''
                     INSERT INTO turma (semestre, curso_id, professor_id) VALUES (%s, %s, %s)
-                ''', (id, semestre, curso_id, professor_id))
+                ''', (semestre, curso_id, professor_id)) # <-- sem o id aqui
             conn.commit()
             return {"status": "ok"}
         except Exception as e:
