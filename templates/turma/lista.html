@@ -8,7 +8,7 @@
 </div>
 
 <div class="row">
-    <div class="row">
+    <div class="col-12">
         <table class="table table-striped table-hover">
             <thead class="table-dark">
                 <tr>
@@ -22,7 +22,8 @@
                 </tr>
             </thead>
             <tbody>
-               {% for turma in lista_turmas %}
+
+               {% for turma in lista %}
                <tr>
                    <td>{{ turma[0] }}</td>
                    <td>{{ turma[1] }}</td>
