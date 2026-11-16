@@ -67,14 +67,14 @@ def cadastrar_aluno():
 @app.route('/turma')
 def listar_turma():
     dao = TurmaDAO()
-    lista = dao.listar_cursos() 
+    lista = dao.listar_cursos()
     return render_template('turma/lista.html', lista_turmas=lista)
 
 @app.route("/turma/form")
 def form_turma():
     cursos = CursoDAO().listar()
     professores = ProfessorDAO().listar()
-    return render_template('turma/form.html', turma=None, cursos=cursos, professores=professores)
+    return render_template('turma/form.html', turma=None, lista_cursos=cursos, lista_professores=professores)
 
 @app.route('/turma/editar/<int:id>')
 def editar_turma(id):
@@ -82,21 +82,9 @@ def editar_turma(id):
     turma = dao.buscar_por_id(id)
     cursos = CursoDAO().listar()
     professores = ProfessorDAO().listar()
-    return render_template('turma/form.html', turma=turma, cursos=cursos, professores=professores)
+    return render_template('turma/form.html', turma=turma, lista_cursos=cursos, lista_professores=professores)
 
-@app.route('/turma/cadastrar', methods=['GET', 'POST'])
-def cadastrar_turma():
-    if request.method == 'POST':
-        nome = request.form['nome']
-        id_curso = request.form['id_curso']
-        
-        dao = TurmaDAO()
-        dao.salvar(None, nome, id_curso, professor_id=request.form['professor_id'])
-        return redirect('/turma')
-        
-    return render_template('turma/cadastrar.html')
-
-app.route('/turma/salvar', methods=['POST'])
+@app.route('/turma/salvar', methods=['POST'])
 @app.route('/turma/salvar/<int:id>', methods=['POST'])
 def salvar_turma(id=None):
     semestre = request.form['semestre']
@@ -117,10 +105,12 @@ def salvar_turma(id=None):
 def remover_turma(id):
     dao = TurmaDAO()
     resultado = dao.remover(id)
+    
     if resultado["status"] == "ok":
         flash("Turma removida com sucesso!", "success")
     else:
         flash(resultado["mensagem"], "danger")
+        
     return redirect('/turma')
 
 
